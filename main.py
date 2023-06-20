@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import json
 import os.path
 import random
+import time
 from math import radians, sin, cos, sqrt, atan2
 
 cities = {
@@ -136,6 +137,7 @@ def solve_tsp(network):
     start_node = nodes[0]
 
     path = [start_node]
+    total_cost = 0
 
     remaining_nodes = nodes[1:]
 
@@ -154,12 +156,14 @@ def solve_tsp(network):
                 nearest_node = node
 
         path.append(nearest_node)
+        total_cost += min_distance
 
         remaining_nodes.remove(nearest_node)
 
     path.append(start_node)
+    total_cost += network[path[-2]][path[-1]]['weight']
 
-    return path, comparisons
+    return path, total_cost, comparisons
 
 
 def draw_tsp(network, path, index):
@@ -181,9 +185,16 @@ def main():
     draw_networks(networks)
 
     for i, network in enumerate(networks):
-        tsp, comparisons = solve_tsp(network)
+        start_time = time.time()
+        tsp, total_cost, comparisons = solve_tsp(network)
+        end_time = time.time()
+        execution_time = end_time - start_time
+
         print(f"Network {network.number_of_nodes()} Best Path: {tsp}")
+        print(f"Network {network.number_of_nodes()} Total Cost: {total_cost}")
         print(f"Network {network.number_of_nodes()} Comparisons: {comparisons}")
+        print(f"Network {network.number_of_nodes()} Execution Time: {execution_time} seconds")
+
         draw_tsp(network, tsp, i)
 
 
