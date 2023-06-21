@@ -55,7 +55,7 @@ options = {
 }
 
 layout_params = {
-    "k": 0.2,
+    "k": 1,
     "iterations": 50,
 }
 
