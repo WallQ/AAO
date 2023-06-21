@@ -132,36 +132,41 @@ def draw_networks(networks):
 # 16 nodes - 120 comparisons
 # 32 nodes - 496 comparisons
 def solve_tsp(network):
-    nodes = list(network.nodes)
+    nodes = list(network.nodes)  # n
 
-    start_node = nodes[0]
+    start_node = nodes[0]  # 1
+    path = [start_node]  # 1
+    total_cost = 0  # 1
 
-    path = [start_node]
-    total_cost = 0
+    remaining_nodes = nodes[1:]  # n
+    comparisons = 0  # 1
 
-    remaining_nodes = nodes[1:]
+    while remaining_nodes:  # n
+        current_node = path[-1]  # 1
+        nearest_node = None  # 1
+        min_distance = float('inf')  # 1
+        comparisons += 1
 
-    comparisons = 0
-
-    while remaining_nodes:  # O(n)
-        current_node = path[-1]
-        nearest_node = None
-        min_distance = float('inf')
-
-        for node in remaining_nodes:  # O(n)
-            distance = network[current_node][node]['weight']
+        for node in remaining_nodes:  # n
+            distance = network[current_node][node]['weight']  # 1
             comparisons += 1
-            if distance < min_distance:
-                min_distance = distance
-                nearest_node = node
+            if distance < min_distance:  # 1
+                comparisons += 1
+                min_distance = distance  # 1
+                nearest_node = node  # 1
 
-        path.append(nearest_node)
-        total_cost += min_distance
+            print(f"Node {node} Internal Comparisons: {comparisons}")
 
-        remaining_nodes.remove(nearest_node)
+        path.append(nearest_node)  # n
+        total_cost += min_distance  # 1
 
-    path.append(start_node)
-    total_cost += network[path[-2]][path[-1]]['weight']
+        print(f"Remaining nodes {len(remaining_nodes)} Internal Comparisons: {comparisons}")
+
+        remaining_nodes.remove(nearest_node)  # n
+        comparisons += 1
+
+    path.append(start_node)  # n
+    total_cost += network[path[-2]][path[-1]]['weight']  # 1
 
     return path, total_cost, comparisons
 
@@ -186,8 +191,10 @@ def main():
 
     for i, network in enumerate(networks):
         start_time = time.time()
+        print(start_time)
         tsp, total_cost, comparisons = solve_tsp(network)
         end_time = time.time()
+        print(end_time)
         execution_time = end_time - start_time
 
         print(f"Network {network.number_of_nodes()} Best Path: {tsp}")
