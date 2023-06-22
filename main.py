@@ -1,3 +1,5 @@
+import timeit
+
 import networkx as nx
 import matplotlib.pyplot as plt
 import json
@@ -155,12 +157,8 @@ def solve_tsp(network):
                 min_distance = distance  # 1
                 nearest_node = node  # 1
 
-            print(f"Node {node} Internal Comparisons: {comparisons}")
-
         path.append(nearest_node)  # n
         total_cost += min_distance  # 1
-
-        print(f"Remaining nodes {len(remaining_nodes)} Internal Comparisons: {comparisons}")
 
         remaining_nodes.remove(nearest_node)  # n
         comparisons += 1
@@ -190,17 +188,15 @@ def main():
     draw_networks(networks)
 
     for i, network in enumerate(networks):
-        start_time = time.time()
-        print(start_time)
+        start_time = timeit.default_timer()  # Start the timer
         tsp, total_cost, comparisons = solve_tsp(network)
-        end_time = time.time()
-        print(end_time)
+        end_time = timeit.default_timer()  # Stop the timer
         execution_time = end_time - start_time
 
         print(f"Network {network.number_of_nodes()} Best Path: {tsp}")
         print(f"Network {network.number_of_nodes()} Total Cost: {total_cost}")
         print(f"Network {network.number_of_nodes()} Comparisons: {comparisons}")
-        print(f"Network {network.number_of_nodes()} Execution Time: {execution_time} seconds")
+        print(f"Network {network.number_of_nodes()} Execution Time: {execution_time:.6f} seconds")
 
         draw_tsp(network, tsp, i)
 
