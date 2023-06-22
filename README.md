@@ -1,5 +1,7 @@
 Traveling Salesman Problem: Implementation of an Optimization Algorithm based on Operational Research Techniques for Complexity Analysis
+
 MICAEL ANDRÉ CUNHA DIAS, CARLOS FERNANDO TEIXEIRA LEITE SÉRGIO LUÍS LOPES FÉLIX
+
 8200393@estg.ipp.pt, 8200377@estg.ipp.pt, 8200615@estg.ipp.pt
 
 Instituto Politécnico do Porto, Escola Superior de Tecnologia e Gestão, Rua do Curral, Casa do Curral–Margaride, 4610-156 Felgueiras, Portugal.
